@@ -13,6 +13,13 @@ class Base {
     _storageKey.set(this, storageKey)
   }
 
+  getEntityFromStorage (id) {
+    const storageKey = _storageKey.get(this)
+    const entities = readLocalStorage(storageKey, [])
+    const entity = entities.filter(v => v.id === id)[0]
+    return entity
+  }
+
   getProps (prop) {
     let propTypes = _propTypes.get(this)
     let supportedProps = Object.keys(propTypes)

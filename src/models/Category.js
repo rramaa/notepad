@@ -9,9 +9,17 @@ class Category extends Base {
     name: PropTypes.string.isRequired
   }
 
-  constructor (name) {
+  static getCategory = function (id) {
+    return new this({}, id)
+  }
+
+  constructor ({name}, id) {
     super(CATEGORY)
-    const id = categoryIdGenerator.next().value
+    if (id || id === 0) {
+      ({id, name} = this.getEntityFromStorage(id))
+    } else {
+      id = categoryIdGenerator.next().value
+    }
     this.setProps({id, name})
   }
 }
